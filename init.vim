@@ -14,6 +14,7 @@ call plug#begin(s:plugin_dir)
     Plug 'junegunn/fzf', {'do': './install' } | Plug 'junegunn/fzf.vim'
     Plug 'ghifarit53/tokyonight-vim'
     Plug 'octol/vim-cpp-enhanced-highlight'
+    Plug 'mattn/emmet-vim'                  "Emmet for web development
 
 call plug#end()
 
@@ -29,6 +30,7 @@ nmap <silent> <leader>m <Plug>(coc-diagnostic-next)
 
 inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+nnoremap <space>e :CocCommand explorer<CR>
 
 "-------------------------------------------------------------------------------
 " Text formatting
@@ -52,16 +54,16 @@ map <F4> :A<CR>
 " Switch between .h and _inline.h using F5.
 map <F5> :AI<CR>
 
-
+" --- EMMET CONFIG ---
+"redefine trigger key
+let g:user_emmet_leader_key=','
 
 " --- COLOR THEMES ---
-
-set termguicolors
-
+"set termguicolors
 let g:tokyonight_style = 'night' " available: night, storm
 let g:tokyonight_enable_italic = 0
 let g:tokyonight_disable_italic_comment = 1
-let g:tokyonight_transparent_background = 0
+let g:tokyonight_transparent_background = 1
 let g:tokyonight_current_word = 'bold'
 colorscheme tokyonight
 let g:airline_theme = "tokyonight"
