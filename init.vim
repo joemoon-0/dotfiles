@@ -46,6 +46,8 @@ set smarttab                         " insert tabs on the start of a line
 set tabstop=4                        " a tab is four spaces
 set wrap                             " wrap overlong lines
 set number
+set mouse=a
+
 map <leader>s :Rg<space>
 map <C-p> :Files<CR>
 
