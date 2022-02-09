@@ -7,14 +7,23 @@ let s:plug_file = '~/.config/nvim/autoload/plug.vim'
      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
  endif
 
+"-------------------------------------------------------------------------------
+" Plug-ins
+"-------------------------------------------------------------------------------
+
 call plug#begin(s:plugin_dir)
 
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-    Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+    Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'      " Status bar
     Plug 'junegunn/fzf', {'do': './install' } | Plug 'junegunn/fzf.vim'
     Plug 'ghifarit53/tokyonight-vim'
     Plug 'octol/vim-cpp-enhanced-highlight'
-    Plug 'mattn/emmet-vim'                  "Emmet for web development
+    Plug 'mattn/emmet-vim'                                                      "Emmet for web development
+
+    Plug 'https://github.com/tpope/vim-commentary'                              " For Commenting gcc & gc
+    Plug 'https://github.com/ap/vim-css-color'                                  " CSS Color Preview
+    Plug 'https://github.com/rafi/awesome-vim-colorschemes'                     " Retro Scheme
+    Plug 'https://github.com/ryanoasis/vim-devicons'                            " Developer Icons
 
 call plug#end()
 
