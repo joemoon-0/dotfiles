@@ -15,6 +15,8 @@ call plug#begin(s:plugin_dir)
 
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'      " Status bar
+    Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+    Plug 'https://github.com/tpope/vim-commentary'
     Plug 'junegunn/fzf', {'do': './install' } | Plug 'junegunn/fzf.vim'
     Plug 'ghifarit53/tokyonight-vim'
     Plug 'octol/vim-cpp-enhanced-highlight'
@@ -55,6 +57,7 @@ set smarttab                         " insert tabs on the start of a line
 set tabstop=4                        " a tab is four spaces
 set wrap                             " wrap overlong lines
 set number
+set relativenumber
 set mouse=a
 
 map <leader>s :Rg<space>
