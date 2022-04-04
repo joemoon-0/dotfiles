@@ -15,7 +15,6 @@ call plug#begin(s:plugin_dir)
 
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'      " Status bar
-    Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
     Plug 'https://github.com/tpope/vim-commentary'
     Plug 'junegunn/fzf', {'do': './install' } | Plug 'junegunn/fzf.vim'
     Plug 'ghifarit53/tokyonight-vim'
