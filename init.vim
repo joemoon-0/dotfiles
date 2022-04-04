@@ -67,7 +67,7 @@ map <F5> :AI<CR>
 
 " --- EMMET CONFIG ---
 "redefine trigger key
-let g:user_emmet_leader_key=','
+let g:user_emmet_leader_key='<C-Z>'
 
 " --- COLOR THEMES ---
 "set termguicolors
