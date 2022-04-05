@@ -79,7 +79,6 @@ map <C-p> :Files<CR>
 
 " Toogle switch for Tagbar
 nmap <F8> :TagbarToggle<CR>
-let g:tagbar_ctags_bin = ''
 
 " Switch between .h and .cpp using F4.
 map <F4> :A<CR>                         
