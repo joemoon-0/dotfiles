@@ -22,6 +22,7 @@ call plug#begin(s:plugin_dir)
 
     Plug 'https://github.com/tpope/vim-commentary'                              " For Commenting gcc & gc
     Plug 'https://github.com/ryanoasis/vim-devicons'                            " Developer Icons
+    Plug 'sheerun/vim-polyglot'                                                 " Enhanced syntax highlighting
 
     " CPP Plug-ins
     Plug 'octol/vim-cpp-enhanced-highlight'
@@ -51,6 +52,7 @@ set smarttab                         " insert tabs on the start of a line
                                      " according to shiftwidth, not tabstop
 set tabstop=4                        " a tab is four spaces
 set wrap                             " wrap overlong lines
+set noswapfile
 
 set number                           " absolute line numbers
 set relativenumber                   " relative line numbers
@@ -102,6 +104,24 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+"-------------------------------------------------------------------------------
+" AIRLINE SETTINGS
+"-------------------------------------------------------------------------------
+let g:coc_global_extensions = [
+    \ 'coc-clangd',
+    \ 'coc-clang-format-style-options',
+    \ 'coc-cmake',
+    \ 'coc-tsserver',
+    \ 'coc-json',
+    \ 'coc-html',
+    \ 'coc-css',
+    \ 'coc-htmlhint',
+    \ 'coc-html-css-support',
+    \ 'coc-emmet',
+    \ 'coc-python',
+	\ 'coc-diagnostic'
+    \]
 
 "-------------------------------------------------------------------------------
 " EMMET SETTINGS
