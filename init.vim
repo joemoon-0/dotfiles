@@ -14,8 +14,9 @@ let s:plug_file = '~/.config/nvim/autoload/plug.vim'
 call plug#begin(s:plugin_dir)
 
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }                           " Auto Completion
-    Plug 'junegunn/fzf', {'do': './install' } | Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf', {'do': './install' } | Plug 'junegunn/fzf.vim'         " Command Line Fuzzy Finder
 
+    Plug 'glepnir/dashboard-nvim'                                               " NeoVim Dashboard
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'      " Status bar
     Plug 'https://github.com/preservim/tagbar'                                  " Tagbar for code navigation
     Plug 'https://github.com/tc50cal/vim-terminal'                              " Vim Terminal
@@ -58,7 +59,18 @@ set number                           " absolute line numbers
 set relativenumber                   " relative line numbers
 set mouse=a                          " active interface mouse
 
-let mapleader=" "                    " set our personal modifier key to space
+let mapleader=" "                    " set personal modifier key to space
+
+" DASHBOARD SETTINGS
+let g:dashboard_default_executive ='fzf'
+nmap <Leader>ss :<C-u>SessionSave<CR>
+nmap <Leader>sl :<C-u>SessionLoad<CR>
+nnoremap <silent> <Leader>fh :DashboardFindHistory<CR>
+nnoremap <silent> <Leader>ff :DashboardFindFile<CR>
+nnoremap <silent> <Leader>tc :DashboardChangeColorscheme<CR>
+nnoremap <silent> <Leader>fa :DashboardFindWord<CR>
+nnoremap <silent> <Leader>fb :DashboardJumpMark<CR>
+nnoremap <silent> <Leader>cn :DashboardNewFile<CR>
 
 "-------------------------------------------------------------------------------
 " CUSTOM MAPPINGS
