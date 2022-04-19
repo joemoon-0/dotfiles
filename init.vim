@@ -15,6 +15,8 @@ call plug#begin(s:plugin_dir)
 
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }                           " Auto Completion
     Plug 'junegunn/fzf', {'do': './install' } | Plug 'junegunn/fzf.vim'
+    Plug 'prettier/vim-prettier', {
+    \ 'do': 'yarn install --frozen-lockfile --production' }
 
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'      " Status bar
     Plug 'https://github.com/preservim/tagbar'                                  " Tagbar for code navigation
