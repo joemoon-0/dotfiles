@@ -1,3 +1,7 @@
+"-------------------------------------------------------------------------------
+" ************************* NeoVim Configuration *******************************
+"-------------------------------------------------------------------------------
+
 let s:plugin_dir = '~/.config/nvim/plugged'
 let s:plug_file = '~/.config/nvim/autoload/plug.vim'
 
@@ -7,27 +11,28 @@ let s:plug_file = '~/.config/nvim/autoload/plug.vim'
      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
  endif
 
+
 "-------------------------------------------------------------------------------
 " Plug-ins
 "-------------------------------------------------------------------------------
 
 call plug#begin(s:plugin_dir)
 
-    Plug 'neoclide/coc.nvim', { 'branch': 'release' }                           " Auto Completion
-    Plug 'junegunn/fzf', {'do': './install' } | Plug 'junegunn/fzf.vim'
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }                           " Language Server Protocol
+    Plug 'junegunn/fzf', {'do': './install' } | Plug 'junegunn/fzf.vim'         " A command-line fuzzy finder
     Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 
-    Plug 'glepnir/dashboard-nvim'                                               " NeoVim Dashboard
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'      " Status bar
     Plug 'https://github.com/preservim/tagbar'                                  " Tagbar for code navigation
     Plug 'https://github.com/tc50cal/vim-terminal'                              " Vim Terminal
 
     Plug 'https://github.com/tpope/vim-commentary'                              " For Commenting gcc & gc
     Plug 'https://github.com/ryanoasis/vim-devicons'                            " Developer Icons
-    Plug 'sheerun/vim-polyglot'                                                 " Enhanced syntax highlighting
+    Plug 'https://github.com/mkitt/tabline.vim'                                 " Tabline
 
     " CPP Plug-ins
     Plug 'octol/vim-cpp-enhanced-highlight'
+    Plug 'sheerun/vim-polyglot'                                                 " Enhanced syntax highlighting
 
     " Web Development Plug-ins
     Plug 'mattn/emmet-vim'                                                      " Emmet for web development
@@ -36,13 +41,12 @@ call plug#begin(s:plugin_dir)
 
     " Colorscheme Plug-ins
     Plug 'https://github.com/rafi/awesome-vim-colorschemes'                     " Retro Scheme
-    Plug 'ghifarit53/tokyonight-vim'                                            " Tokyonight colorscheme
 
 call plug#end()
 
 
 "-------------------------------------------------------------------------------
-" NeoVim settings
+" NEOVIM SETTINGS
 "-------------------------------------------------------------------------------
 set encoding=utf-8
 set autoindent                       " always set autoindenting on
@@ -62,43 +66,61 @@ set mouse=a                          " active interface mouse
 
 let mapleader=" "                    " set personal modifier key to space
 
-" DASHBOARD SETTINGS
-let g:dashboard_default_executive ='fzf'
-nmap <Leader>ss :<C-u>SessionSave<CR>
-nmap <Leader>sl :<C-u>SessionLoad<CR>
-nnoremap <silent> <Leader>fh :DashboardFindHistory<CR>
-nnoremap <silent> <Leader>ff :DashboardFindFile<CR>
-nnoremap <silent> <Leader>tc :DashboardChangeColorscheme<CR>
-nnoremap <silent> <Leader>fa :DashboardFindWord<CR>
-nnoremap <silent> <Leader>fb :DashboardJumpMark<CR>
-nnoremap <silent> <Leader>cn :DashboardNewFile<CR>
-
 "-------------------------------------------------------------------------------
 " CUSTOM MAPPINGS
 "-------------------------------------------------------------------------------
 imap jk <ESC>
 
-" coc.nvim mappings
-nmap <silent> <leader>jd <Plug>(coc-definition)
-nmap <silent> <F3>       <Plug>(coc-references)
-nmap <silent> K          :call CocActionAsync('doHover')<CR>
-nmap <silent> <leader>n <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>m <Plug>(coc-diagnostic-next)
-
-inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 nnoremap <space>e :CocCommand explorer<CR>
+nnoremap <Leader><Leader> :source $MYVIMRC<CR>
 
+" Ripgrep
 map <leader>s :Rg<space>
+
+" Fuzzy File Search
 map <C-p> :Files<CR>
 
 " Toogle switch for Tagbar
 nmap <F8> :TagbarToggle<CR>
 
 " Switch between .h and .cpp using F4.
-map <F4> :A<CR>                         
+" map <F4> :A<CR>
+nnoremap <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+
 " Switch between .h and _inline.h using F5.
 map <F5> :AI<CR>
+
+
+"-------------------------------------------------------------------------------
+" coc.nvim mappings
+"-------------------------------------------------------------------------------
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+ 
+" Hover documentation
+nmap <silent> K <cmd>CocActionAsync('doHover')<CR>
+ 
+" Code action (such as adding missing includes, quick fix, etc)
+nmap <silent> <leader>ac <Plug>(coc-action-cursor)
+ 
+" Use Tab/Shift-Tab to navigate code-completion suggestions
+inoremap <silent><expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+ 
+" Quality of life
+set shortmess+=c
+set updatetime=300
+ 
+augroup mygroup
+  autocmd!
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+nmap <silent> <leader>n <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>m <Plug>(coc-diagnostic-next)
 
 "-------------------------------------------------------------------------------
 " AIRLINE SETTINGS
@@ -119,7 +141,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 "-------------------------------------------------------------------------------
-" AIRLINE SETTINGS
+" COC-EXTENSIONS
 "-------------------------------------------------------------------------------
 let g:coc_global_extensions = [
     \ 'coc-clangd',
@@ -144,11 +166,20 @@ let g:user_emmet_leader_key='<C-Z>'     " redefine emmit trigger
 "-------------------------------------------------------------------------------
 " COLORSCHEMES
 "-------------------------------------------------------------------------------
-" let g:tokyonight_style = 'night' " available: night, storm
-" let g:tokyonight_enable_italic = 0
-" let g:tokyonight_disable_italic_comment = 1
-" let g:tokyonight_transparent_background = 1
-" let g:tokyonight_current_word = 'bold'
-" colorscheme tokyonight
+colorscheme onedark
 
-colorscheme afterglow
+" CursorLine Modifications
+hi CursorLineNr ctermfg=Black ctermbg=LightGreen cterm=bold
+set cursorline
+set cursorlineopt=number
+
+" == TabLine Modifications ==
+
+" TabLine display with no tab
+hi TabLineFill ctermfg=254 ctermbg=238 cterm=none guifg=#333 guibg=#222 gui=none 
+
+" Non-active tabs
+hi TabLine ctermfg=249 ctermbg=DarkGray
+
+" Active tabs
+hi TabLineSel ctermfg=232 ctermbg=LightGreen cterm=bold
