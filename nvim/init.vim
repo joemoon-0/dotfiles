@@ -29,6 +29,7 @@ call plug#begin(s:plugin_dir)
     Plug 'https://github.com/tpope/vim-commentary'                              " For Commenting gcc & gc
     Plug 'https://github.com/ryanoasis/vim-devicons'                            " Developer Icons
     Plug 'https://github.com/mkitt/tabline.vim'                                 " Tabline
+    Plug 'tmsvg/pear-tree'                                                      " Auto-pair
 
     " CPP Plug-ins
     Plug 'octol/vim-cpp-enhanced-highlight'
@@ -61,7 +62,7 @@ set wrap                             " wrap overlong lines
 set noswapfile
 
 set number                           " absolute line numbers
-set relativenumber                   " relative line numbers
+" set relativenumber                   " relative line numbers
 set mouse=a                          " active interface mouse
 
 let mapleader=" "                    " set personal modifier key to space
@@ -71,7 +72,9 @@ let mapleader=" "                    " set personal modifier key to space
 "-------------------------------------------------------------------------------
 imap jk <ESC>
 
+" run ':CocInstall coc-explorer' first
 nnoremap <space>e :CocCommand explorer<CR>
+
 nnoremap <Leader><Leader> :source $MYVIMRC<CR>
 
 " Ripgrep
@@ -90,6 +93,15 @@ nnoremap <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " Switch between .h and _inline.h using F5.
 map <F5> :AI<CR>
 
+" === Page Movement ===
+" Page Down
+nnoremap <C-j> <C-f>
+" Half-Page Down
+nnoremap <C-h> <C-d>
+" Page Up
+nnoremap <C-k> <C-b>
+" Half-Page Up
+nnoremap <C-l> <C-u>
 
 "-------------------------------------------------------------------------------
 " coc.nvim mappings
