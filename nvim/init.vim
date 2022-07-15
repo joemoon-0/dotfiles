@@ -173,7 +173,7 @@ let g:coc_global_extensions = [
 "-------------------------------------------------------------------------------
 " EMMET SETTINGS
 "-------------------------------------------------------------------------------
-let g:user_emmet_leader_key='<C-Z>'     " redefine emmit trigger
+let g:user_emmet_leader_key=','     " redefine emmit trigger
 
 "-------------------------------------------------------------------------------
 " VIM SESSIONS
