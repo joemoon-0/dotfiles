@@ -117,6 +117,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Make colon separated env vars legible
+function ev() {
+    if [[ "${#}" -eq 1 ]]; then
+        echo "${!1}" | sed 's/:/\n/g'
+    else
+        echo ${PATH} | sed 's/:/\n/g'
+    fi
+}
 
 source ~/.alias
 

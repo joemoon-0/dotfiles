@@ -29,7 +29,7 @@ call plug#begin(s:plugin_dir)
     Plug 'https://github.com/tpope/vim-commentary'                              " For Commenting gcc & gc
     Plug 'https://github.com/ryanoasis/vim-devicons'                            " Developer Icons
     Plug 'https://github.com/mkitt/tabline.vim'                                 " Tabline
-    Plug 'tmsvg/pear-tree'                                                      " Auto-pair
+    Plug 'tmsvg/pear-tree'                                                      " Auto-pair; Defaults: () [] {} '' Double-quotes
 
     " CPP Plug-ins
     Plug 'octol/vim-cpp-enhanced-highlight'
@@ -90,8 +90,8 @@ nmap <F8> :TagbarToggle<CR>
 " map <F4> :A<CR>
 nnoremap <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
-" Switch between .h and _inline.h using F5.
-map <F5> :AI<CR>
+" Switch between .h and _inline.h using F3.
+map <F3> :AI<CR>
 
 " === Page Movement ===
 " Page Down
@@ -176,6 +176,26 @@ let g:coc_global_extensions = [
 let g:user_emmet_leader_key='<C-Z>'     " redefine emmit trigger
 
 "-------------------------------------------------------------------------------
+" VIM SESSIONS
+"-------------------------------------------------------------------------------
+" Automatically save the current session whenever vim is closed
+autocmd VimLeave * mksession! ~/.dotfiles/nvim/sessions/shutdown_session.vim
+
+" <F8> restores that 'shutdown session'
+noremap <F7> :source ~/.dotfiles/nvim/sessions/shutdown_session.vim<CR>
+
+" If you really want to, this next line should restore the shutdown session
+" automatically, whenever you start vim.  (Commented out for now, in case
+" somebody just copy/pastes this whole block)
+" autocmd VimEnter source ~/.dotfiles/nvim/sessions/shutdown_session.vim<CR>
+
+" manually save a session with <F6>
+noremap <F5> :mksession! ~/.dotfiles/nvim/sessions/manual_session.vim<cr>
+
+" recall the manually saved session with <F7>
+noremap <F6> :source ~/.dotfiles/nvim/sessions/manual_session.vim<cr>
+
+"-------------------------------------------------------------------------------
 " COLORSCHEMES
 "-------------------------------------------------------------------------------
 colorscheme onedark
@@ -185,8 +205,9 @@ hi CursorLineNr ctermfg=Black ctermbg=LightGreen cterm=bold
 set cursorline
 set cursorlineopt=number
 
-" == TabLine Modifications ==
-
+"-------------------------------------------------------------------------------
+" TABLINE SETTINGS
+"-------------------------------------------------------------------------------
 " TabLine display with no tab
 hi TabLineFill ctermfg=254 ctermbg=238 cterm=none guifg=#333 guibg=#222 gui=none 
 
