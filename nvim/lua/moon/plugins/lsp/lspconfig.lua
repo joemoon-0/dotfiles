@@ -4,7 +4,6 @@ return {
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
-        'nvim-lua/lsp-status.nvim',
     },
     config = function()
         -- import lspconfig plugin
@@ -13,16 +12,10 @@ return {
         -- import cmp-nvim-lsp plugin
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-        -- import lsp_status plugin
-        local lsp_status = require("lsp-status")
-        lsp_status.register_progress()
-
         local keymap = vim.keymap -- for conciseness
 
         local opts = { noremap = true, silent = true }
         local on_attach = function(client, bufnr)
-            lsp_status.on_attach(client)
-
             opts.buffer = bufnr
 
             -- set keybinds
@@ -116,10 +109,6 @@ return {
             'configure.ac', -- AutoTools
         }
         lspconfig["clangd"].setup({
-            handlers = lsp_status.extensions.clangd.setup(),
-            init_options = {
-                clangdFileStatus = true
-            },
             capabilities = capabilities,
             on_attach = on_attach,
             cmd = { "clangd", "--background-index" },
