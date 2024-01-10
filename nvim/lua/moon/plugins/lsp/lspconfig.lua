@@ -4,6 +4,7 @@ return {
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
+        'nvim-lua/lsp-status.nvim',
     },
     config = function()
         -- import lspconfig plugin
@@ -12,15 +13,21 @@ return {
         -- import cmp-nvim-lsp plugin
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+        -- import lsp_status plugin
+        local lsp_status = require("lsp-status")
+        lsp_status.register_progress()
+
         local keymap = vim.keymap -- for conciseness
 
         local opts = { noremap = true, silent = true }
         local on_attach = function(client, bufnr)
+            lsp_status.on_attach(client)
+
             opts.buffer = bufnr
 
             -- set keybinds
             opts.desc = "Show LSP references"
-            keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+            keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
             opts.desc = "Go to declaration"
             keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
@@ -59,8 +66,11 @@ return {
             keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
         end
 
-        -- used to enable autocompletion (assign to every lsp server config)
-        local capabilities = cmp_nvim_lsp.default_capabilities()
+        local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+        local capabilities = {
+            cmp_nvim_lsp.default_capabilities(),
+            vim.tbl_extend('keep', lsp_capabilities or {}, lsp_status.capabilities),
+        }
 
         -- Change the Diagnostic symbols in the sign column (gutter)
         -- (not in youtube nvim video)
@@ -95,12 +105,28 @@ return {
             filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss" },
         })
 
-        -- configure C++ language server
-        -- lspconfig["clangd"].setup({
-        lspconfig.clangd.setup({
+        -- Configure C++ language server
+        local util = require 'lspconfig.util'
+        local root_files = {
+            '.clangd',
+            '.clang-tidy',
+            '.clang-format',
+            'compile_commands.json',
+            'compile_flags.txt',
+            'configure.ac', -- AutoTools
+        }
+        lspconfig["clangd"].setup({
+            handlers = lsp_status.extensions.clangd.setup(),
+            init_options = {
+                clangdFileStatus = true
+            },
             capabilities = capabilities,
             on_attach = on_attach,
             cmd = { "clangd", "--background-index" },
+            filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+            root_dir = function(fname)
+                return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
+            end,
         })
 
         -- configure python server
