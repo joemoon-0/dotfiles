@@ -14,3 +14,7 @@ key.set("n", "<C-u>", "<C-u>zz")
 key.set("n", "<C-t>", "<cmd>:tab split<CR>")
 key.set("n", "<C-h>", "<cmd>BufferLineCyclePrev<CR>")
 key.set("n", "<C-l>", "<cmd>BufferLineCycleNext<CR>")
+
+-- LSP Clang - toggle between header and implementation
+key.set("n", "<F3>", "<cmd>ClangdSwitchSourceHeader<CR>")
+key.set("n", "<F4>", "<cmd>lua open_hpp()<CR>")

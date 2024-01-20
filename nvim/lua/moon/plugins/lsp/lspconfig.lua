@@ -59,14 +59,9 @@ return {
             keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
         end
 
-        local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
-        local capabilities = {
-            cmp_nvim_lsp.default_capabilities(),
-            vim.tbl_extend('keep', lsp_capabilities or {}, lsp_status.capabilities),
-        }
+        local capabilities = { cmp_nvim_lsp.default_capabilities() }
 
         -- Change the Diagnostic symbols in the sign column (gutter)
-        -- (not in youtube nvim video)
         local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
         for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
@@ -99,7 +94,7 @@ return {
         })
 
         -- Configure C++ language server
-        local util = require 'lspconfig.util'
+        local util = require('lspconfig.util')
         local root_files = {
             '.clangd',
             '.clang-tidy',
@@ -116,6 +111,7 @@ return {
             root_dir = function(fname)
                 return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
             end,
+            single_file_support = true,
         })
 
         -- configure python server
